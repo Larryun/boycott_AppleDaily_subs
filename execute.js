@@ -22,8 +22,6 @@ chrome.storage.sync.get(["state"], function(items){
 });
 
 chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-  console.log(message);
-
   switch (message.action) {
     case 'STOP':
       chrome.storage.sync.set({ "state": "stop" }, function(){
@@ -42,8 +40,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
 
     case 'GET_STATE':
       chrome.storage.sync.get(["state"], function(items){
-        // console.log(sendResponse, items.hasOwnProperty("state"));
-        // sendResponse({status: "ON"});
         if(items.hasOwnProperty("state")){
           if(items["state"] == "start"){
             sendState("ON");
@@ -53,8 +49,6 @@ chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
         }else{
           sendState("ON");
         }
-        console.log("SENT");
-
       });
       break;
 
@@ -69,22 +63,3 @@ function sendState(state){
     status: state
   });
 }
-
-// chrome.runtime.onConnect.addListener(function(port)){
-//   console.assert(port.name == "getstate");
-//   port.onMessage.addListener(function(msg){
-//     if (msg.action == "GET_STATE"){
-//       chrome.storage.sync.get(["state"], function(items){
-//         if(items.hasOwnProperty("state")){
-//           if(items["state"] == "start"){
-//             port.postMessage({status: "ON"});
-//           }else{
-//             port.postMessage({status: "OFF"});
-//           }
-//         }else{
-//           port.postMessage({status: "ON"});
-//         }
-//       });
-//     }
-//   })
-// }
