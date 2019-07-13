@@ -19,6 +19,10 @@ And go appledaily read
 
 Just go to any article and you will be able to read any article without subscriptions
 
+## TODO
+
+Get rid of jQuery
+
 ## Contributing
 
 Larry

@@ -1,7 +1,9 @@
 chrome.runtime.onMessage.addListener(function(msg, sender){
+	// Update status
 	$("#status").text(msg.status);
 });
 
+// Send message to content
 window.addEventListener('DOMContentLoaded', function () {
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     chrome.tabs.sendMessage(tabs[0].id, {action: 'GET_STATE'});
